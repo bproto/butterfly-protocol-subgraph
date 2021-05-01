@@ -2,13 +2,13 @@ specVersion: 0.0.2
 description: Butterfly Protocol
 repository: https://github.com/bproto/subgraph
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Governance
     network: mainnet
     source:
-      address: '0x7A863DbA6A470a20315f47f1ecA814B2af6eAd6F'
+      address: "0x7A863DbA6A470a20315f47f1ecA814B2af6eAd6F"
       abi: Governance
       startBlock: 10554040
     mapping:
@@ -22,7 +22,7 @@ dataSources:
         - Bid
       abis:
         - name: Governance
-          file: ./abis/Governance.json
+          file: Governance/abis/Governance.json
       eventHandlers:
         - event: Sponsored(indexed bytes32,uint256,address,uint256)
           handler: handleSponsorship
@@ -30,14 +30,12 @@ dataSources:
           handler: handleBid
         - event: Claimed(indexed bytes32,address,uint256)
           handler: handleClaim
-
-      file: ./src/governance.ts
-
+      file: Governance/Governance.wasm
   - kind: ethereum/contract
     name: GovernanceToken
     network: mainnet
     source:
-      address: '0xf680429328caaacabee69b7a9fdb21a71419c063'
+      address: "0xf680429328caaacabee69b7a9fdb21a71419c063"
       abi: GovernanceToken
       startBlock: 10554040
     mapping:
@@ -48,17 +46,16 @@ dataSources:
         - Account
       abis:
         - name: GovernanceToken
-          file: ./abis/GovernanceToken.json
+          file: GovernanceToken/abis/GovernanceToken.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/governance.ts
-
+      file: Governance/Governance.wasm
   - kind: ethereum/contract
     name: Registry
     network: mainnet
     source:
-      address: '0x67ECFEDAc405879541E86d427aa419ae5e0967a5'
+      address: "0x67ECFEDAc405879541E86d427aa419ae5e0967a5"
       abi: Registry
       startBlock: 10554040
     mapping:
@@ -71,7 +68,7 @@ dataSources:
         - Attribute
       abis:
         - name: Registry
-          file: ./abis/Registry.json
+          file: Registry/abis/Registry.json
       eventHandlers:
         - event: DomainRegistered(indexed bytes32,string,address,string)
           handler: handleDomainRegistered
@@ -81,14 +78,12 @@ dataSources:
           handler: handleEconomyRegistered
         - event: AttrSet(bytes32,bytes32,bytes32)
           handler: handleAttrSet
-
-      file: ./src/registry.ts
-
+      file: Registry/Registry.wasm
   - kind: ethereum/contract
     name: RegistryToken
     network: mainnet
     source:
-      address: '0x5ff749b95E00F17bD754895aBb502fD1c66f56f8'
+      address: "0x5ff749b95E00F17bD754895aBb502fD1c66f56f8"
       abi: RegistryToken
       startBlock: 10554040
     mapping:
@@ -101,12 +96,11 @@ dataSources:
         - Token
       abis:
         - name: RegistryToken
-          file: ./abis/RegistryToken.json
+          file: RegistryToken/abis/RegistryToken.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/registry.ts
-
+      file: Registry/Registry.wasm
 templates:
   - kind: ethereum/contract
     name: DomainToken
@@ -122,8 +116,8 @@ templates:
         - Balance
       abis:
         - name: DomainToken
-          file: ./abis/DomainToken.json
+          file: DomainToken/abis/DomainToken.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/token.ts
+      file: templates/DomainToken/DomainToken.wasm
